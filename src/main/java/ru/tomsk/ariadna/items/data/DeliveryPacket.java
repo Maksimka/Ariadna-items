@@ -51,12 +51,12 @@ public class DeliveryPacket implements Serializable {
 
     @Basic(optional = false)
     @Column(name = "delivery_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date deliveryDate;
 
     @Basic(optional = false)
     @Column(name = "expected_return_date")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date expectedReturnDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deliveryPacket")
@@ -64,7 +64,7 @@ public class DeliveryPacket implements Serializable {
 
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     @ManyToOne(optional = false)
-    private AriadnaMember memberId;
+    private AriadnaMember member;
 
     public DeliveryPacket() {
         //Автоматически созданный конструктор
@@ -122,12 +122,12 @@ public class DeliveryPacket implements Serializable {
         this.deliveryCollection = deliveryCollection;
     }
 
-    public AriadnaMember getMemberId() {
-        return memberId;
+    public AriadnaMember getMember() {
+        return member;
     }
 
-    public void setMemberId(AriadnaMember memberId) {
-        this.memberId = memberId;
+    public void setMember(AriadnaMember member) {
+        this.member = member;
     }
 
     @Override

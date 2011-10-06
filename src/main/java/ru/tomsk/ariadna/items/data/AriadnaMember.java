@@ -47,7 +47,7 @@ public class AriadnaMember implements Serializable {
     @Column(name = "lastname")
     private String lastname;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "memberId")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "member")
     private Collection<DeliveryPacket> deliveryPacketCollection;
 
     public AriadnaMember() {
@@ -86,6 +86,10 @@ public class AriadnaMember implements Serializable {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+    
+    public String getFullName() {
+        return this.firstname + " " + lastname;
     }
 
     @XmlTransient
