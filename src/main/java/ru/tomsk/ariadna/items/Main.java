@@ -20,21 +20,21 @@ public class Main {
     public static final String TITLE = "Кильдым";
 
     public static void main(String[] args) {
-        logger.info("Старт \"" + TITLE + "\"");
+        logger.info("Откраваем «{}»", TITLE);
         final JFrame rootFrame = new RootFrame();
         rootFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         rootFrame.addWindowListener(new WindowAdapter() {
 
             @Override
             public void windowClosing(WindowEvent e) {
-                logger.info("Закрыть \"" + TITLE + "\"");
+                logger.info("Закрываем «{}»", TITLE);
                 rootFrame.setVisible(false);
             }
 
             @Override
             public void windowClosed(WindowEvent e) {
                 PersistenceUtil.close();
-                logger.info("Закрыто.");
+                logger.info("«{}» закрыт.", TITLE);
                 System.exit(0);
             }
         });

@@ -2,16 +2,23 @@ package ru.tomsk.ariadna.items;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
+import java.util.regex.PatternSyntaxException;
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.JToolBar;
+import javax.swing.RowFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,14 +48,14 @@ public class RootFrame extends JFrame {
      */
     private static final int DEFAULT_HEIGHT = 600;
 
-    private final DeliveryPacketTable deliveryPacketTable;
+    private final DeliveryTable deliveryPacketTable;
 
     public RootFrame() {
         setTitle(Main.TITLE);
         loadPreferences();
         add(createToolBar(), BorderLayout.NORTH);
         JPanel body = new JPanel(new BorderLayout());
-        deliveryPacketTable = new DeliveryPacketTable();
+        deliveryPacketTable = new DeliveryTable();
         body.add(new JScrollPane(deliveryPacketTable), BorderLayout.CENTER);
         add(body, BorderLayout.CENTER);
         addWindowListener(getClosing());
@@ -58,7 +65,54 @@ public class RootFrame extends JFrame {
         JToolBar tools = new JToolBar();
         tools.setFloatable(false);
         addActionToToolBar(tools);
+        tools.addSeparator();
+        addFilterToToolBar(tools);
         return tools;
+    }
+
+    private void addFilterToToolBar(JToolBar tools) {
+        tools.add(new JLabel("Поиск: "));
+        final JTextField textField = new JTextField(16);
+
+        textField.addKeyListener(new KeyAdapter() {
+
+            @Override
+            public void keyReleased(KeyEvent event) {
+                //Быстрй поиск
+                if (event.getKeyCode() == KeyEvent.VK_ENTER) {
+                    RowFilter<DeliveryTableModel, Integer> filter =
+                            getFilter(textField.getText().trim());
+                    deliveryPacketTable.getRowSorter().setRowFilter(filter);
+                } else if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                    textField.setText(null);
+                    deliveryPacketTable.getRowSorter().setRowFilter(null);
+                }
+            }
+        });
+        tools.add(textField);
+        JButton filterButton = new JButton("Найти");
+        filterButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                RowFilter<DeliveryTableModel, Integer> filter =
+                        getFilter(textField.getText().trim());
+                deliveryPacketTable.getRowSorter().setRowFilter(filter);
+            }
+        });
+        tools.add(filterButton);
+    }
+
+    private RowFilter<DeliveryTableModel, Integer> getFilter(String filterText) {
+        RowFilter<DeliveryTableModel, Integer> filter = null;
+        if (filterText.isEmpty() == false) {
+            try {
+                filter = RowFilter.regexFilter(filterText);
+            } catch (PatternSyntaxException e) {
+                logger.warn("Не корректная строка \"" + filterText + "\" для поиска");
+            }
+        }
+        return filter;
     }
 
     private void addActionToToolBar(JToolBar tools) {
@@ -66,7 +120,8 @@ public class RootFrame extends JFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                throw new UnsupportedOperationException("Not supported yet.");
+                CreateDeliveryDialog packetDialog = new CreateDeliveryDialog();
+                packetDialog.setVisible(true);
             }
         });
         tools.add(create);
@@ -78,7 +133,7 @@ public class RootFrame extends JFrame {
             }
         });
         tools.add(delete);
-        JButton change = new JButton(new AbstractAction("Изменить выдачу") {
+        JButton change = new JButton(new AbstractAction("Изменить") {
 
             @Override
             public void actionPerformed(ActionEvent e) {

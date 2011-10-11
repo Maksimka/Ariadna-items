@@ -11,9 +11,9 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
  *
  * @author maksim
  */
-public class DeliveryPacketTableModel extends AbstractTableModel {
+public class DeliveryTableModel extends AbstractTableModel {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeliveryPacketTableModel.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeliveryTableModel.class);
 
     public static final int DELIVERY_PACKET_ID = 0;
 
@@ -27,7 +27,7 @@ public class DeliveryPacketTableModel extends AbstractTableModel {
 
     private List<DeliveryPacket> delivertPackets;
 
-    public DeliveryPacketTableModel() {
+    public DeliveryTableModel() {
         this.delivertPackets = null;
     }
 
@@ -99,6 +99,10 @@ public class DeliveryPacketTableModel extends AbstractTableModel {
                     + "Строка: " + rowIndex + ", столбец: " + columnIndex);
             return null;
         }
+    }
+
+    public DeliveryPacket getDeliveryPacket(int rowIndex) {
+        return delivertPackets.get(rowIndex);
     }
 
     @Override

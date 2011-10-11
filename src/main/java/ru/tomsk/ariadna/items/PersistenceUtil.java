@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package ru.tomsk.ariadna.items;
 
 import javax.persistence.EntityManager;
@@ -12,7 +8,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author Шаймарданов Максим МаратовичF
+ * @author Шаймарданов Максим Маратович
  */
 public class PersistenceUtil {
 
