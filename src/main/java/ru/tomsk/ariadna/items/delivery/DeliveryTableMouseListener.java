@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items;
+package ru.tomsk.ariadna.items.delivery;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;

@@ -11,21 +11,21 @@ import javax.swing.table.DefaultTableCellRenderer;
  */
 public class TableDateRender extends DefaultTableCellRenderer {
 
-    SimpleDateFormat formatter;
+    private SimpleDateFormat formatter;
 
-    TableDateRender(String pattern) {
+    public TableDateRender(String pattern) {
         this(new SimpleDateFormat(pattern));
     }
 
-    TableDateRender(String pattern, int alignment) {
+    public TableDateRender(String pattern, int alignment) {
         this(new SimpleDateFormat(pattern), alignment);
     }
 
-    TableDateRender(SimpleDateFormat formatter) {
+    public TableDateRender(SimpleDateFormat formatter) {
         this(formatter, JLabel.LEFT);
     }
 
-    TableDateRender(SimpleDateFormat formatter, int alignment) {
+    public TableDateRender(SimpleDateFormat formatter, int alignment) {
         this.formatter = formatter;
         setHorizontalAlignment(alignment);
 

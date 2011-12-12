@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items;
+package ru.tomsk.ariadna.items.delivery;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;

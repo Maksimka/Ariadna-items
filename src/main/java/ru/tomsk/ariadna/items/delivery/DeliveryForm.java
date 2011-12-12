@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items;
+package ru.tomsk.ariadna.items.delivery;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;

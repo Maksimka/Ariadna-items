@@ -17,13 +17,14 @@
         <exclude-unlisted-classes>true</exclude-unlisted-classes>
         <properties>
             <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
-            <!-- <property name="hibernate.archive.autodetection" value="class"/> -->
+      <!-- <property name="hibernate.archive.autodetection" value="class"/> -->
             <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="false"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-            <property name="javax.persistence.jdbc.user" value=""/>
-            <property name="javax.persistence.jdbc.password" value=""/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/ariadna_items"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.password" value="pioneer"/>
+            <property name="hibernate.connection.url" 
+            value="jdbc:mysql://46.236.137.127:3306/ariadna_items"/>
         </properties>
     </persistence-unit>
 </persistence>
