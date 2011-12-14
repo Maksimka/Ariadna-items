@@ -9,7 +9,7 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
 
 /**
  *
- * @author maksim
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
 public class DeliveryTableModel extends AbstractTableModel {
 
@@ -27,31 +27,8 @@ public class DeliveryTableModel extends AbstractTableModel {
 
     private List<DeliveryPacket> delivertPackets;
 
-    public DeliveryTableModel() {
-        this.delivertPackets = null;
-    }
-
     public void setDelivertPackets(List<DeliveryPacket> delivertPackets) {
         this.delivertPackets = delivertPackets;
-    }
-
-    @Override
-    public String getColumnName(int columnIndex) {
-        if (columnIndex == DELIVERY_PACKET_ID) {
-            return "№";
-        } else if (columnIndex == MEMBER_NAME) {
-            return "Кому выдано";
-        } else if (columnIndex == EVENT) {
-            return "Мероприятие";
-        } else if (columnIndex == DELIVERY_DATE) {
-            return "Дата выдачи";
-        } else if (columnIndex == EXPECTED_RETURN_DATE) {
-            return "Дата возврата";
-        } else {
-            logger.warn("Попытка получить значение для несуществующего стообца. "
-                    + "Столбец: " + columnIndex);
-            return "Столбец №" + columnIndex;
-        }
     }
 
     @Override
@@ -65,7 +42,7 @@ public class DeliveryTableModel extends AbstractTableModel {
 
     /**
      * Возвращяет общие количество свойств выдачи.
-     * 
+     *
      * @return общие количество свойств выдачи
      */
     @Override
@@ -73,9 +50,28 @@ public class DeliveryTableModel extends AbstractTableModel {
         return 5;
     }
 
+    @Override
+    public String getColumnName(int columnIndex) {
+        if (columnIndex == DELIVERY_PACKET_ID) {
+            return "№";
+        } else if (columnIndex == MEMBER_NAME) {
+            return "Кому выдано";
+        } else if (columnIndex == EVENT) {
+            return "Мероприятие";
+        } else if (columnIndex == DELIVERY_DATE) {
+            return "Выдано";
+        } else if (columnIndex == EXPECTED_RETURN_DATE) {
+            return "Возвратить";
+        } else {
+            logger.warn("Попытка получить значение для несуществующего стообца. "
+                    + "Столбец: " + columnIndex);
+            return "Столбец №" + columnIndex;
+        }
+    }
+
     /**
      * Возвращяет свойство пакета выдачи.
-     * 
+     *
      * @param rowIndex номер пакета выдачи.
      * @param columnIndex номер столбца ячейки
      * @return свойство пакета выдачи
@@ -93,16 +89,11 @@ public class DeliveryTableModel extends AbstractTableModel {
             return packet.getDeliveryDate();
         } else if (columnIndex == EXPECTED_RETURN_DATE) {
             return packet.getExpectedReturnDate();
-
         } else {
             logger.warn("Попытка получить значение которое не существет из списка выдач. "
                     + "Строка: " + rowIndex + ", столбец: " + columnIndex);
             return null;
         }
-    }
-
-    public DeliveryPacket getDeliveryPacket(int rowIndex) {
-        return delivertPackets.get(rowIndex);
     }
 
     @Override
@@ -120,5 +111,9 @@ public class DeliveryTableModel extends AbstractTableModel {
         } else {
             return Object.class;
         }
+    }
+
+    public DeliveryPacket getDeliveryPacket(int rowIndex) {
+        return delivertPackets.get(rowIndex);
     }
 }

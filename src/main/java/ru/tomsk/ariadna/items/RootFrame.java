@@ -6,14 +6,16 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JTabbedPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.tomsk.ariadna.items.delivery.DeliveryPanel;
+import ru.tomsk.ariadna.items.delivery.DeliveryTabPanel;
+import ru.tomsk.ariadna.items.item.ItemTabPanel;
 
 /**
  *
- * @author Шаймарданов Максим Маратович
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
 public class RootFrame extends JFrame {
 
@@ -40,22 +42,16 @@ public class RootFrame extends JFrame {
     public RootFrame() {
         setTitle(Main.TITLE);
         loadPreferences();
-        
+
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Выдачи", new DeliveryPanel());
+        tabbedPane.addTab("Выдачи", new DeliveryTabPanel());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-        tabbedPane.addTab("Снаряжение", createItemPanel());
+        tabbedPane.addTab("Снаряжение", new ItemTabPanel());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
-        
+
         add(tabbedPane, BorderLayout.CENTER);
         addWindowListener(getClosing());
     }
-    
-    private JPanel createItemPanel() {
-        JPanel itemPanel = new JPanel(new BorderLayout());
-        return itemPanel;
-    }
-
 
     private void loadPreferences() {
         Preferences preferences = Preferences.userNodeForPackage(RootFrame.class);

@@ -13,8 +13,9 @@ import org.slf4j.LoggerFactory;
 import ru.tomsk.ariadna.items.data.DeliveryPacket;
 
 /**
- *
- * @author Ŝajmardanov Maksim Maratoviĉ <maximax@ms.tusur.ru>
+ * Окно создания выдачи.
+ * 
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
 public class CreateDeliveryDialog extends JDialog {
 

@@ -14,7 +14,8 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
 
 /**
  * Панель содержащая таблицу пакета выдач.
- * @author Шаймарданов Максим Маратович
+ * 
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
 public class DeliveryTable extends JTable {
 
@@ -35,9 +36,9 @@ public class DeliveryTable extends JTable {
         setRowSorter(sorter);
         initRaser();
         addMouseListener(new DeliveryTableMouseListener());
-        getColumn("Дата выдачи").
+        getColumn("Выдано").
                 setCellRenderer(new TableDateRender("yyyy-MM-dd", JLabel.CENTER));
-        getColumn("Дата возврата").
+        getColumn("Возвратить").
                 setCellRenderer(new TableDateRender("yyyy-MM-dd", JLabel.CENTER));
     }
 
@@ -56,28 +57,32 @@ public class DeliveryTable extends JTable {
     }
 
     private void initRaser() {
-        TableColumn idColumn =
+        TableColumn id =
                 getColumnModel().getColumn(DeliveryTableModel.DELIVERY_PACKET_ID);
-        idColumn.setMinWidth(30);
-        idColumn.setMaxWidth(70);
-        idColumn.setPreferredWidth(40);
-        TableColumn nameColumn =
+        id.setMinWidth(40);
+        id.setMaxWidth(70);
+        id.setPreferredWidth(40);
+        
+        TableColumn name =
                 getColumnModel().getColumn(DeliveryTableModel.MEMBER_NAME);
-        nameColumn.setMinWidth(200);
-        nameColumn.setPreferredWidth(250);
-        TableColumn aliasColumn =
+        name.setMinWidth(200);
+        name.setPreferredWidth(250);
+        
+        TableColumn alias =
                 getColumnModel().getColumn(DeliveryTableModel.EVENT);
-        aliasColumn.setMinWidth(150);
-        aliasColumn.setPreferredWidth(250);
-        TableColumn enrolmentYearColumn =
+        alias.setMinWidth(150);
+        alias.setPreferredWidth(250);
+        
+        TableColumn enrolmentYear =
                 getColumnModel().getColumn(DeliveryTableModel.DELIVERY_DATE);
-        enrolmentYearColumn.setMinWidth(100);
-        enrolmentYearColumn.setMaxWidth(140);
-        enrolmentYearColumn.setPreferredWidth(110);
-        TableColumn birthdayColumn =
+        enrolmentYear.setMinWidth(100);
+        enrolmentYear.setMaxWidth(130);
+        enrolmentYear.setPreferredWidth(100);
+        
+        TableColumn birthday =
                 getColumnModel().getColumn(DeliveryTableModel.EXPECTED_RETURN_DATE);
-        birthdayColumn.setMinWidth(110);
-        birthdayColumn.setMaxWidth(140);
-        birthdayColumn.setPreferredWidth(120);
+        birthday.setMinWidth(100);
+        birthday.setMaxWidth(130);
+        birthday.setPreferredWidth(100);
     }
 }

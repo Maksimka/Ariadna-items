@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ŝajmardanov Maksim Maratoviĉ <maximax@ms.tusur.ru>
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
 @Entity
 @Table(name = "type")
@@ -99,6 +99,6 @@ public class Type implements Serializable {
 
     @Override
     public String toString() {
-        return "ru.tomsk.ariadna.items.data.Type[ name=" + name + " ]";
+        return name;
     }
 }

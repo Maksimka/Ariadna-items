@@ -8,7 +8,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ŝajmardanov Maksim Maratoviĉ <maximax@ms.tusur.ru>
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
 @Entity
 @Table(name = "model")
@@ -121,6 +121,6 @@ public class Model implements Serializable {
 
     @Override
     public String toString() {
-        return "ru.tomsk.ariadna.items.data.Model[ modelPK=" + modelPK + " ]";
+        return modelPK.getVendor() + ' ' + modelPK.getName();
     }
 }

@@ -13,19 +13,19 @@ import org.slf4j.LoggerFactory;
 
 /**
  *
- * @author maksim
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class DeliveryPanel extends JPanel {
+public class DeliveryTabPanel extends JPanel {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeliveryPanel.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeliveryTabPanel.class);
 
     private final DeliveryTable deliveryPacketTable;
 
-    public DeliveryPanel() {
+    public DeliveryTabPanel() {
         this(new BorderLayout());
     }
 
-    public DeliveryPanel(LayoutManager layout) {
+    public DeliveryTabPanel(LayoutManager layout) {
         super(layout);
         deliveryPacketTable = new DeliveryTable();
         add(createToolBar(), BorderLayout.NORTH);
