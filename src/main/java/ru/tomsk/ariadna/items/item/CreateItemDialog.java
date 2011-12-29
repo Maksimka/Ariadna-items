@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items.delivery;
+package ru.tomsk.ariadna.items.item;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -10,22 +10,22 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.tomsk.ariadna.items.data.DeliveryPacket;
+import ru.tomsk.ariadna.items.data.Item;
 
 /**
  * Окно создания выдачи.
  *
  * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class CreateDeliveryDialog extends JDialog {
+public class CreateItemDialog extends JDialog {
 
-    private static final Logger logger = LoggerFactory.getLogger(CreateDeliveryDialog.class);
+    private static final Logger logger = LoggerFactory.getLogger(CreateItemDialog.class);
 
-    private final DeliveryForm form;
+    private final ItemForm form;
 
     private final JPanel buttons;
 
-    private final static String NEW_PACKET = "Новая выдача";
+    private final static String NEW_ITEM = "Новое снаряжение";
 
     private final static String SEPARATOR = " - ";
 
@@ -33,18 +33,18 @@ public class CreateDeliveryDialog extends JDialog {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(800, 600);
 
-    public CreateDeliveryDialog() {
-        this(new DeliveryPacket());
+    public CreateItemDialog() {
+        this(new Item());
     }
 
-    public CreateDeliveryDialog(DeliveryPacket packet) {
+    public CreateItemDialog(Item item) {
         super();
-        if (packet.getDeliveryPacketId() == null) {
-            setTitle(NEW_PACKET + SEPARATOR + DIALOG_TITLE);
+        if (item.getId() == null) {
+            setTitle(NEW_ITEM + SEPARATOR + DIALOG_TITLE);
         } else {
-            setTitle(packet.getEvent() + SEPARATOR + DIALOG_TITLE);
+            setTitle(item.getModel() + SEPARATOR + DIALOG_TITLE);
         }
-        form = new DeliveryForm(packet);
+        form = new ItemForm(item);
         add(form, BorderLayout.CENTER);
         buttons = createButtons();
         add(buttons, BorderLayout.SOUTH);
@@ -59,7 +59,7 @@ public class CreateDeliveryDialog extends JDialog {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                //Сохранить пакет снаряжения
+                //Сохранить снаряжение
                 setVisible(false);
             }
         });

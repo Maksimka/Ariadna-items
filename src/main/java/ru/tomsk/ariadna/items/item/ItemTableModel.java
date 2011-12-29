@@ -15,9 +15,9 @@ public class ItemTableModel extends AbstractTableModel {
 
     private static final Logger logger = LoggerFactory.getLogger(ItemTableModel.class);
 
-    public static final int TYPE = 1;
-
     public static final int NUMBER = 0;
+
+    public static final int VENDOR = 1;
 
     public static final int MODEL = 2;
 
@@ -52,8 +52,8 @@ public class ItemTableModel extends AbstractTableModel {
 
     @Override
     public String getColumnName(int columnIndex) {
-        if (columnIndex == TYPE) {
-            return "Тип";
+        if (columnIndex == VENDOR) {
+            return "Производитель";
         } else if (columnIndex == NUMBER) {
             return "№";
         } else if (columnIndex == MODEL) {
@@ -62,7 +62,7 @@ public class ItemTableModel extends AbstractTableModel {
             return "Примечание";
         } else if (columnIndex == RECEIPT_DATE) {
             return "Добавлено";
-        }else {
+        } else {
             logger.warn("Попытка получить значение для несуществующего стообца. "
                     + "Столбец: " + columnIndex);
             return "Столбец №" + columnIndex;
@@ -79,12 +79,12 @@ public class ItemTableModel extends AbstractTableModel {
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         Item item = items.get(rowIndex);
-        if (columnIndex == TYPE) {
-            return item.getModel().getModelPK().getType();
+        if (columnIndex == VENDOR) {
+            return item.getModel().getModelPK().getVendor();
         } else if (columnIndex == NUMBER) {
             return item.getNumber();
         } else if (columnIndex == MODEL) {
-            return item.getModel().toString();
+            return item.getModel().getModelPK().getName();
         } else if (columnIndex == NOTE) {
             return item.getNote();
         } else if (columnIndex == RECEIPT_DATE) {
@@ -98,7 +98,7 @@ public class ItemTableModel extends AbstractTableModel {
 
     @Override
     public Class<?> getColumnClass(int columnIndex) {
-        if (columnIndex == TYPE) {
+        if (columnIndex == VENDOR) {
             return String.class;
         } else if (columnIndex == NUMBER) {
             return Integer.class;
@@ -111,5 +111,9 @@ public class ItemTableModel extends AbstractTableModel {
         } else {
             return Object.class;
         }
+    }
+
+    public Item getItem(int rowIndex) {
+        return items.get(rowIndex);
     }
 }

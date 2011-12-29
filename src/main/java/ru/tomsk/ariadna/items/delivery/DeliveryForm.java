@@ -12,8 +12,8 @@ public class DeliveryForm extends JPanel {
 
   private final DeliveryPacket packet;
 
-  public DeliveryForm(DeliveryPacket member) {
-    this.packet = member;
-    add(new JLabel(member.toString()));
+  public DeliveryForm(DeliveryPacket packet) {
+    this.packet = packet;
+    add(new JLabel(packet.toString()));
   }
 }

@@ -1,7 +1,5 @@
 package ru.tomsk.ariadna.items.item;
 
-import java.util.List;
-import javax.persistence.EntityManager;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.TableColumn;
@@ -9,9 +7,7 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.tomsk.ariadna.items.PersistenceUtil;
 import ru.tomsk.ariadna.items.TableDateRender;
-import ru.tomsk.ariadna.items.data.Item;
 import ru.tomsk.ariadna.items.delivery.DeliveryTableModel;
 
 /**
@@ -31,10 +27,10 @@ public class ItemTable extends JTable {
     private void init() {
         setAutoCreateRowSorter(true);
         setFillsViewportHeight(true);
+        addMouseListener(new ItemTableMouseListener());
     }
 
     public void setModel(ItemTableModel dataModel) {
-        //ItemTableModel tableModel = getItemTableModel();
         super.setModel(dataModel);
         TableRowSorter<TableModel> sorter =
                 new TableRowSorter<TableModel>(dataModel);
@@ -48,13 +44,6 @@ public class ItemTable extends JTable {
         return (TableRowSorter<DeliveryTableModel>) super.getRowSorter();
     }
 
-    private ItemTableModel getItemTableModel() {
-        EntityManager entityManager = PersistenceUtil.getEntityManager();
-        List<Item> items = entityManager.createQuery(
-                "SELECT i FROM Item i ORDER BY i.model.modelPK.type, i.number ").getResultList();
-        return new ItemTableModel(items);
-    }
-
     private void initRaser() {
         TableColumn number =
                 getColumnModel().getColumn(ItemTableModel.NUMBER);
@@ -63,7 +52,7 @@ public class ItemTable extends JTable {
         number.setPreferredWidth(30);
 
         TableColumn type =
-                getColumnModel().getColumn(ItemTableModel.TYPE);
+                getColumnModel().getColumn(ItemTableModel.VENDOR);
         type.setMinWidth(100);
         type.setMaxWidth(180);
         type.setPreferredWidth(130);
