@@ -10,7 +10,7 @@
 
     <name>Ariadna-items</name>
     <url>https://github.com/Maksimka/Ariadna-items</url>
-    
+
     <build>
         <plugins>
             <plugin>
@@ -24,7 +24,7 @@
             </plugin>
         </plugins>
     </build>
-    
+
     <repositories>
         <repository>
             <url>http://download.java.net/maven/2/</url>
@@ -33,7 +33,7 @@
             <name>Repository for library Library[beans-binding]</name>
         </repository>
     </repositories>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <hibernate-core-version>3.6.5.Final</hibernate-core-version>
@@ -70,7 +70,7 @@
             <artifactId>javassist</artifactId>
             <version>3.9.0.GA</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
@@ -82,7 +82,7 @@
             <artifactId>logback-core</artifactId>
             <version>0.9.30</version>
         </dependency>
-        
+
         <dependency>
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
@@ -92,9 +92,9 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>5.1.16</version>
+            <version>5.1.21</version>
         </dependency>
-        
+
         <dependency>
             <groupId>org.jdesktop</groupId>
             <artifactId>beansbinding</artifactId>

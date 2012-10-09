@@ -1,6 +1,8 @@
+CREATE SCHEMA IF NOT EXISTS `ariadna_items` DEFAULT CHARACTER SET utf8 ;
+USE `ariadna_items` ;
+
 DROP TABLE `discarded`;
-DROP TABLE `discarded_item`;
-DROP TABLE `return`;
+DROP TABLE `item_return`;
 DROP TABLE `delivery`;
 DROP TABLE `delivery_packet`;
 DROP TABLE `member`;
@@ -23,7 +25,6 @@ CREATE TABLE `model` (
     `name` VARCHAR(64) NOT NULL COMMENT 'Имя модели',
     `vendor` VARCHAR(32) NOT NULL COMMENT 'Имя производителя',
     `type` VARCHAR(32) NOT NULL COMMENT 'Тип снаряжения',
-    `article` VARCHAR(32) NOT NULL COMMENT 'Артикул',
     `description` VARCHAR(256) NOT NULL DEFAULT 'Нету' COMMENT 'Описание модели',
     CONSTRAINT model_pk PRIMARY KEY (`name`, `vendor`, `type`),
     CONSTRAINT model_fk_type FOREIGN KEY (`type`)
@@ -76,8 +77,7 @@ CREATE TABLE `item` (
     `type` VARCHAR(32) NOT NULL COMMENT 'Тип снаряжения',
     `receipt_date` TIMESTAMP NOT NULL DEFAULT
         CURRENT_TIMESTAMP COMMENT 'Дата поступления единицы снаряжения',
-    `work_state` BOOLEAN NOT NULL DEFAULT true COMMENT 'Рабочие состояние',
-    `description` VARCHAR(256) NOT NULL DEFAULT 'Нету' COMMENT 'Описание единицы снаряжениия',
+    `note` VARCHAR(256) NOT NULL DEFAULT 'Нету' COMMENT 'Примечание',
     CONSTRAINT item_pk PRIMARY KEY (`id`),
     CONSTRAINT item_uk_number_type UNIQUE (`number`, `type`),
     CONSTRAINT item_fk_model_name_vendor_type FOREIGN KEY (`model_name`, `vendor`, `type`)
@@ -161,7 +161,7 @@ CREATE TABLE `delivery` (
 ENGINE = InnoDB COMMENT = 'Выдачи единицы снаряжения'
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE `return` (
+CREATE TABLE `item_return` (
     `delivery_packet_id` INTEGER NOT NULL COMMENT 'Пакет выдачи снаряжения',
     `item_id` INTEGER NOT NULL COMMENT 'Возвращаемая единица снаряжения',
     `return_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Дата возвращение',
@@ -174,32 +174,21 @@ CREATE TABLE `return` (
 ENGINE = InnoDB COMMENT = 'Возвращение единицы снаряжения'
 CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-CREATE TABLE `discarded_item` (
-    `item_id` INTEGER NOT NULL COMMENT 'Списываемая единица снаряжения',
-    `discarded_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
-        COMMENT 'Дата списания единицы снаряжения',
-    `cause` VARCHAR(256) NOT NULL COMMENT 'Причина списания единицы снаряжения',
-    CONSTRAINT discarded_item_pk PRIMARY KEY (`item_id`),
-    CONSTRAINT discarded_item_fk_item_id FOREIGN KEY (`item_id`)
-        REFERENCES `item` (`id`)
-            ON UPDATE CASCADE
-            ON DELETE NO ACTION
-)
-ENGINE = InnoDB COMMENT = 'Списание единицы снаряжения'
-CHARACTER SET utf8 COLLATE utf8_general_ci;
-
 CREATE TABLE `discarded` (
     `item_id` INTEGER NOT NULL COMMENT 'Списываемая единица снаряжения',
-    `delivery_packet_id` INTEGER NOT NULL COMMENT 'Пакет выдачи снаряжения',
+    `cause` VARCHAR(256) NOT NULL COMMENT 'Причина',
+    `discarded_date` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+        COMMENT 'Дата списания единицы снаряжения',
+    `delivery_packet_id` INTEGER NULL DEFAULT NULL  COMMENT 'Пакет выдачи снаряжения',
     CONSTRAINT discarded_pk PRIMARY KEY (`item_id`),
     CONSTRAINT discarded_fk_item_id FOREIGN KEY (`item_id`)
-        REFERENCES `discarded_item` (`item_id`)
+        REFERENCES `item` (`id`)
             ON UPDATE CASCADE
             ON DELETE CASCADE,
-    CONSTRAINT discarded_fk_item_id_delivery_packet_id FOREIGN KEY (`delivery_packet_id`, `item_id`)
-        REFERENCES `delivery` (`delivery_packet_id`, `item_id`)
+    CONSTRAINT discarded_fk_delivery_packet_id FOREIGN KEY (`delivery_packet_id`)
+        REFERENCES `delivery` (`delivery_packet_id`)
             ON UPDATE CASCADE
             ON DELETE CASCADE
 )
-ENGINE = InnoDB COMMENT = 'Связь списание единицы снаряжения с выдачей её члену клуба'
+ENGINE = InnoDB COMMENT = 'Списание единицы снаряжения'
 CHARACTER SET utf8 COLLATE utf8_general_ci;
