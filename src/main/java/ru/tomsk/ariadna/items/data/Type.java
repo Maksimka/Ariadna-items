@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Type.findAll", query = "SELECT t FROM Type t"),
+    @NamedQuery(name = "Type.findAllByOrder", query = "SELECT t FROM Type t ORDER by t.name"),
     @NamedQuery(name = "Type.findByName", query = "SELECT t FROM Type t WHERE t.name = :name")})
 public class Type implements Serializable {
 
@@ -34,8 +35,11 @@ public class Type implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "type1")
     private Collection<ModelProperty> modelPropertyCollection;
 
+    @Transient
+    private int cacheItemCount;
+
     public Type() {
-        //Автоматически созданный конструктор
+        this.cacheItemCount = -1;
     }
 
     public Type(String name) {
@@ -75,6 +79,14 @@ public class Type implements Serializable {
 
     public void setModelPropertyCollection(Collection<ModelProperty> modelPropertyCollection) {
         this.modelPropertyCollection = modelPropertyCollection;
+    }
+
+    public int getCacheItemCount() {
+        return cacheItemCount;
+    }
+
+    public void setCacheItemCount(int cacheItemCount) {
+        this.cacheItemCount = cacheItemCount;
     }
 
     @Override

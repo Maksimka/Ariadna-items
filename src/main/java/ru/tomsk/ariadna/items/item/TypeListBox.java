@@ -1,6 +1,7 @@
 package ru.tomsk.ariadna.items.item;
 
 import java.awt.BorderLayout;
+import java.awt.Font;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -29,11 +30,13 @@ public class TypeListBox extends JPanel {
     public TypeListBox(final ItemTable itemTable) {
         super(new BorderLayout());
         final JList typeList = new JList();
+        Font font = typeList.getFont();
+        typeList.setFont(font.deriveFont(font.getStyle() & ~Font.BOLD));
         typeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         typeList.setLayoutOrientation(JList.VERTICAL);
         typeList.setListData(getTypeList().toArray());
+        typeList.setCellRenderer(new TypeCellRenderer());
         typeList.addListSelectionListener(new ListSelectionListener() {
-
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 Type type = (Type) typeList.getSelectedValue();
@@ -47,8 +50,9 @@ public class TypeListBox extends JPanel {
                         "SELECT i FROM Item i "
                         + "WHERE i.model.modelPK.type = :type "
                         + "ORDER BY i.number ");
-                query.setParameter("type", type.toString());
+                query.setParameter("type", type.getName());
                 List<Item> items = query.getResultList();
+                type.setCacheItemCount(items.size());
                 return new ItemTableModel(items);
             }
         });
@@ -57,9 +61,10 @@ public class TypeListBox extends JPanel {
         add(new JScrollPane(typeList), BorderLayout.CENTER);
     }
 
-    public List<Type> getTypeList() {
+    private List<Type> getTypeList() {
         EntityManager entityManager = PersistenceUtil.getEntityManager();
-        TypedQuery<Type> allTypeQuery = entityManager.createNamedQuery("Type.findAll", Type.class);
+        TypedQuery<Type> allTypeQuery = entityManager.createNamedQuery(
+                "Type.findAllByOrder", Type.class);
         return allTypeQuery.getResultList();
     }
 }
