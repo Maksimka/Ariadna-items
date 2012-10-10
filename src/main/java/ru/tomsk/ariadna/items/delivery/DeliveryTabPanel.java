@@ -15,19 +15,19 @@ import ru.tomsk.ariadna.items.delivery.packet.DeliveryPacketPanel;
  *
  * @author Maksim
  */
-public class DelivaryTabPanel extends JPanel {
+public class DeliveryTabPanel extends JPanel {
 
-    private static final Logger logger = LoggerFactory.getLogger(DelivaryTabPanel.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeliveryTabPanel.class);
 
     private final ItemDeliveryTable itemDeliveryTable;
 
     private final DeliveryPacketPanel deliveryPacketPanel;
 
-    public DelivaryTabPanel() {
+    public DeliveryTabPanel() {
         this(new BorderLayout());
     }
 
-    public DelivaryTabPanel(LayoutManager layout) {
+    public DeliveryTabPanel(LayoutManager layout) {
         super(layout);
         itemDeliveryTable = new ItemDeliveryTable();
         deliveryPacketPanel = new DeliveryPacketPanel(itemDeliveryTable);
