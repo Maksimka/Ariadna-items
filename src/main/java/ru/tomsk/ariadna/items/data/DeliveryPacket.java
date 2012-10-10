@@ -3,6 +3,7 @@ package ru.tomsk.ariadna.items.data;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -44,7 +45,7 @@ public class DeliveryPacket implements Serializable {
     private Date expectedReturnDate;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "deliveryPacket")
-    private Collection<Delivery> deliveryCollection;
+    private List<Delivery> itemDeliveries;
 
     @JoinColumn(name = "member_id", referencedColumnName = "member_id")
     @ManyToOne(optional = false)
@@ -98,12 +99,12 @@ public class DeliveryPacket implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Delivery> getDeliveryCollection() {
-        return deliveryCollection;
+    public List<Delivery> getItemDeliveries() {
+        return itemDeliveries;
     }
 
-    public void setDeliveryCollection(Collection<Delivery> deliveryCollection) {
-        this.deliveryCollection = deliveryCollection;
+    public void setItemDeliveries(List<Delivery> itemDeliveries) {
+        this.itemDeliveries = itemDeliveries;
     }
 
     public AriadnaMember getMember() {

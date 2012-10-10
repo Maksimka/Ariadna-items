@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items.delivery;
+package ru.tomsk.ariadna.items.delivery.packet;
 
 import java.awt.BorderLayout;
 import java.awt.LayoutManager;
@@ -8,26 +8,28 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.regex.PatternSyntaxException;
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import ru.tomsk.ariadna.items.delivery.item.ItemDeliveryTable;
 
 /**
  *
  * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class DeliveryTabPanel extends JPanel {
+public class DeliveryPacketPanel extends JPanel {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeliveryTabPanel.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeliveryPacketPanel.class);
 
-    private final DeliveryTable deliveryPacketTable;
+    private final DeliveryPackeTable deliveryPacketTable;
 
-    public DeliveryTabPanel() {
-        this(new BorderLayout());
+    public DeliveryPacketPanel(ItemDeliveryTable itemDeliveryTable) {
+        this(new BorderLayout(), itemDeliveryTable);
     }
 
-    public DeliveryTabPanel(LayoutManager layout) {
+    public DeliveryPacketPanel(LayoutManager layout, ItemDeliveryTable itemDeliveryTable) {
         super(layout);
-        deliveryPacketTable = new DeliveryTable();
+        deliveryPacketTable = new DeliveryPackeTable(itemDeliveryTable);
         add(createToolBar(), BorderLayout.NORTH);
         add(new JScrollPane(deliveryPacketTable), BorderLayout.CENTER);
     }
@@ -46,12 +48,11 @@ public class DeliveryTabPanel extends JPanel {
         final JTextField textField = new JTextField(16);
 
         textField.addKeyListener(new KeyAdapter() {
-
             @Override
             public void keyReleased(KeyEvent event) {
                 //Быстрй поиск
                 if (event.getKeyCode() == KeyEvent.VK_ENTER) {
-                    RowFilter<DeliveryTableModel, Integer> filter =
+                    RowFilter<DeliveryPacketTableModel, Integer> filter =
                             getFilter(textField.getText().trim());
                     deliveryPacketTable.getRowSorter().setRowFilter(filter);
                 } else if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
@@ -63,10 +64,9 @@ public class DeliveryTabPanel extends JPanel {
         tools.add(textField);
         JButton filterButton = new JButton("Найти");
         filterButton.addActionListener(new ActionListener() {
-
             @Override
             public void actionPerformed(ActionEvent event) {
-                RowFilter<DeliveryTableModel, Integer> filter =
+                RowFilter<DeliveryPacketTableModel, Integer> filter =
                         getFilter(textField.getText().trim());
                 deliveryPacketTable.getRowSorter().setRowFilter(filter);
             }
@@ -74,8 +74,8 @@ public class DeliveryTabPanel extends JPanel {
         tools.add(filterButton);
     }
 
-    private RowFilter<DeliveryTableModel, Integer> getFilter(String filterText) {
-        RowFilter<DeliveryTableModel, Integer> filter = null;
+    private RowFilter<DeliveryPacketTableModel, Integer> getFilter(String filterText) {
+        RowFilter<DeliveryPacketTableModel, Integer> filter = null;
         if (filterText.isEmpty() == false) {
             try {
                 filter = RowFilter.regexFilter(filterText);
@@ -88,16 +88,14 @@ public class DeliveryTabPanel extends JPanel {
 
     private void addActionToToolBar(JToolBar tools) {
         JButton create = new JButton(new AbstractAction("Выдать") {
-
             @Override
             public void actionPerformed(ActionEvent e) {
-                CreateDeliveryDialog packetDialog = new CreateDeliveryDialog();
+                CreatePackeDeliveryDialog packetDialog = new CreatePackeDeliveryDialog();
                 packetDialog.setVisible(true);
             }
         });
         tools.add(create);
         JButton delete = new JButton(new AbstractAction("Принять") {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 throw new UnsupportedOperationException("Not supported yet.");
@@ -105,7 +103,6 @@ public class DeliveryTabPanel extends JPanel {
         });
         tools.add(delete);
         JButton change = new JButton(new AbstractAction("Изменить") {
-
             @Override
             public void actionPerformed(ActionEvent e) {
                 throw new UnsupportedOperationException("Not supported yet.");

@@ -17,7 +17,7 @@ public class ItemTabPanel extends JPanel {
 
     private static final Logger logger = LoggerFactory.getLogger(ItemTabPanel.class);
 
-    private final JComponent typeListPanel;
+    private final TypeListBox typeListPanel;
 
     private final ItemTable itemTable;
 
@@ -29,11 +29,10 @@ public class ItemTabPanel extends JPanel {
         super(layout);
         itemTable = new ItemTable();
         typeListPanel = new TypeListBox(itemTable);
-
-        JSplitPane splitPane = new JSplitPane(
-                JSplitPane.HORIZONTAL_SPLIT,
-                typeListPanel,
-                new JScrollPane(itemTable));
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
+        splitPane.setDividerLocation(220);
+        splitPane.setLeftComponent(typeListPanel);
+        splitPane.setRightComponent(new JScrollPane(itemTable));
         add(splitPane, BorderLayout.CENTER);
     }
 }

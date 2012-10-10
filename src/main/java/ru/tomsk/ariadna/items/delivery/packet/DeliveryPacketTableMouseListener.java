@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items.delivery;
+package ru.tomsk.ariadna.items.delivery.packet;
 
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -14,24 +14,24 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
  * @see http://www.rgagnon.com/javadetails/java-0336.html
  * @see http://javaswing.wordpress.com/2009/09/16/jtable_right_button_selection/
  */
-public class DeliveryTableMouseListener extends MouseAdapter {
+public class DeliveryPacketTableMouseListener extends MouseAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeliveryTableMouseListener.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeliveryPacketTableMouseListener.class);
 
-    public DeliveryTableMouseListener() {
+    public DeliveryPacketTableMouseListener() {
     }
 
     @Override
     public void mouseClicked(MouseEvent event) {
         if (event.getButton() == MouseEvent.BUTTON1 && event.getClickCount() == 2) {
             logger.debug("Двойной клик левой кнопкой мыши");
-            DeliveryTable deliveryPacketTable = (DeliveryTable) event.getSource();
+            DeliveryPackeTable deliveryPacketTable = (DeliveryPackeTable) event.getSource();
             int selectedRow = deliveryPacketTable.getSelectedRow();
             if (selectedRow >= 0) {
-                DeliveryTableModel model = (DeliveryTableModel) deliveryPacketTable.getModel();
+                DeliveryPacketTableModel model = (DeliveryPacketTableModel) deliveryPacketTable.getModel();
                 DeliveryPacket deliveryPacket = model.getDeliveryPacket(selectedRow);
                 logger.debug(deliveryPacket.toString());
-                CreateDeliveryDialog packetDialog = new CreateDeliveryDialog(deliveryPacket);
+                CreatePackeDeliveryDialog packetDialog = new CreatePackeDeliveryDialog(deliveryPacket);
                 packetDialog.setVisible(true);
             } else {
                 //Элемент не выбран
@@ -43,9 +43,9 @@ public class DeliveryTableMouseListener extends MouseAdapter {
     public void mousePressed(MouseEvent event) {
         if (event.getButton() == MouseEvent.BUTTON3 && event.getClickCount() == 1) {
             logger.debug("Нажатие правой кнопкой мыши");
-            DeliveryTable deliveryPacketTable = (DeliveryTable) event.getSource();
+            DeliveryPackeTable deliveryPacketTable = (DeliveryPackeTable) event.getSource();
             int selectedRow = selectRow(deliveryPacketTable, event.getPoint());
-            DeliveryTableModel model = (DeliveryTableModel) deliveryPacketTable.getModel();
+            DeliveryPacketTableModel model = (DeliveryPacketTableModel) deliveryPacketTable.getModel();
             if (selectedRow >= 0) {
                 DeliveryPacket deliveryPacket = model.getDeliveryPacket(selectedRow);
                 logger.debug(deliveryPacket.toString());

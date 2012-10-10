@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items.delivery;
+package ru.tomsk.ariadna.items.delivery.packet;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -17,11 +17,11 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
  *
  * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class CreateDeliveryDialog extends JDialog {
+public class CreatePackeDeliveryDialog extends JDialog {
 
-    private static final Logger logger = LoggerFactory.getLogger(CreateDeliveryDialog.class);
+    private static final Logger logger = LoggerFactory.getLogger(CreatePackeDeliveryDialog.class);
 
-    private final DeliveryForm form;
+    private final DeliveryPacketForm form;
 
     private final JPanel buttons;
 
@@ -33,18 +33,18 @@ public class CreateDeliveryDialog extends JDialog {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(800, 600);
 
-    public CreateDeliveryDialog() {
+    public CreatePackeDeliveryDialog() {
         this(new DeliveryPacket());
     }
 
-    public CreateDeliveryDialog(DeliveryPacket packet) {
+    public CreatePackeDeliveryDialog(DeliveryPacket packet) {
         super();
         if (packet.getDeliveryPacketId() == null) {
             setTitle(NEW_PACKET + SEPARATOR + DIALOG_TITLE);
         } else {
             setTitle(packet.getEvent() + SEPARATOR + DIALOG_TITLE);
         }
-        form = new DeliveryForm(packet);
+        form = new DeliveryPacketForm(packet);
         add(form, BorderLayout.CENTER);
         buttons = createButtons();
         add(buttons, BorderLayout.SOUTH);

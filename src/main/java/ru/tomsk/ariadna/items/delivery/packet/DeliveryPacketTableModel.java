@@ -1,4 +1,4 @@
-package ru.tomsk.ariadna.items.delivery;
+package ru.tomsk.ariadna.items.delivery.packet;
 
 import java.util.Date;
 import java.util.List;
@@ -11,9 +11,9 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
  *
  * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class DeliveryTableModel extends AbstractTableModel {
+public class DeliveryPacketTableModel extends AbstractTableModel {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeliveryTableModel.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeliveryPacketTableModel.class);
 
     public static final int DELIVERY_PACKET_ID = 0;
 

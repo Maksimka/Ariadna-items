@@ -10,7 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.tomsk.ariadna.items.delivery.DeliveryTabPanel;
+import ru.tomsk.ariadna.items.delivery.DelivaryTabPanel;
 import ru.tomsk.ariadna.items.item.ItemTabPanel;
 
 /**
@@ -44,7 +44,7 @@ public class RootFrame extends JFrame {
         loadPreferences();
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Выдачи", new DeliveryTabPanel());
+        tabbedPane.addTab("Выдачи", new DelivaryTabPanel());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
         tabbedPane.addTab("Снаряжение", new ItemTabPanel());
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
