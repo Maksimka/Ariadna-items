@@ -1,17 +1,16 @@
 package ru.tomsk.ariadna.items;
 
 import java.awt.BorderLayout;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
+import javax.swing.JSplitPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import ru.tomsk.ariadna.items.delivery.DeliveryTabPanel;
-import ru.tomsk.ariadna.items.item.ItemTabPanel;
+import ru.tomsk.ariadna.items.delivery.DeliveriesPanel;
+import ru.tomsk.ariadna.items.item.ItemsPanel;
 
 /**
  *
@@ -39,18 +38,27 @@ public class RootFrame extends JFrame {
      */
     private static final int DEFAULT_HEIGHT = 600;
 
+    private final DeliveriesPanel deliveriesPanel;
+
+    private final ItemsPanel itemsPanel;
+
     public RootFrame() {
         setTitle(Main.TITLE);
         loadPreferences();
-
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.addTab("Выдачи", new DeliveryTabPanel());
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
-        tabbedPane.addTab("Снаряжение", new ItemTabPanel());
-        tabbedPane.setMnemonicAt(0, KeyEvent.VK_2);
-
-        add(tabbedPane, BorderLayout.CENTER);
+        deliveriesPanel = new DeliveriesPanel();
+        itemsPanel = new ItemsPanel();
+        add(createVerticalSplitPane(), BorderLayout.CENTER);
         addWindowListener(getClosing());
+    }
+
+    private JSplitPane createVerticalSplitPane() {
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        splitPane.setTopComponent(deliveriesPanel);
+        splitPane.setBottomComponent(itemsPanel);
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setDividerLocation(0.6);
+        splitPane.setResizeWeight(0.6);
+        return splitPane;
     }
 
     private void loadPreferences() {
@@ -82,7 +90,6 @@ public class RootFrame extends JFrame {
 
     private WindowAdapter getClosing() {
         return new WindowAdapter() {
-
             @Override
             public void windowClosing(WindowEvent e) {
                 savePreferences();

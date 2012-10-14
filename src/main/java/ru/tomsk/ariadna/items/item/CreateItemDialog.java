@@ -2,7 +2,6 @@ package ru.tomsk.ariadna.items.item;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import javax.swing.AbstractAction;
@@ -11,13 +10,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.tomsk.ariadna.items.data.Item;
 
 /**
  * Окно создания выдачи.
+ *
  *
  * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */

@@ -1,7 +1,6 @@
 package ru.tomsk.ariadna.items.delivery;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.LayoutManager;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -12,30 +11,41 @@ import ru.tomsk.ariadna.items.delivery.item.ItemDeliveryTable;
 import ru.tomsk.ariadna.items.delivery.packet.DeliveryPacketPanel;
 
 /**
+ * Панел выдачи.
  *
- * @author Maksim
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class DeliveryTabPanel extends JPanel {
+public class DeliveriesPanel extends JPanel {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeliveryTabPanel.class);
+    private static final Logger logger = LoggerFactory.getLogger(DeliveriesPanel.class);
 
-    private final ItemDeliveryTable itemDeliveryTable;
-
+    /**
+     * Выдачи.
+     */
     private final DeliveryPacketPanel deliveryPacketPanel;
 
-    public DeliveryTabPanel() {
+    /**
+     * Список снаряжения для выдачи.
+     */
+    private final ItemDeliveryTable itemDeliveryTable;
+
+    public DeliveriesPanel() {
         this(new BorderLayout());
     }
 
-    public DeliveryTabPanel(LayoutManager layout) {
+    public DeliveriesPanel(LayoutManager layout) {
         super(layout);
         itemDeliveryTable = new ItemDeliveryTable();
         deliveryPacketPanel = new DeliveryPacketPanel(itemDeliveryTable);
+        add(createHorizontalSplitPane(), BorderLayout.CENTER);
+    }
+
+    private JSplitPane createHorizontalSplitPane() {
         JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
         splitPane.setDividerLocation(0.75);
         splitPane.setResizeWeight(0.75);
         splitPane.setLeftComponent(deliveryPacketPanel);
         splitPane.setRightComponent(new JScrollPane(itemDeliveryTable));
-        add(splitPane, BorderLayout.CENTER);
+        return splitPane;
     }
 }

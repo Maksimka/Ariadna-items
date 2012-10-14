@@ -23,11 +23,11 @@ import ru.tomsk.ariadna.items.data.Type;
  *
  * @author Шаймарданов Максим Маратович <maximax@contek.ru>
  */
-public class TypeListBox extends JPanel {
+public class TypeList extends JPanel {
 
-    private static final Logger logger = LoggerFactory.getLogger(TypeListBox.class);
+    private static final Logger logger = LoggerFactory.getLogger(TypeList.class);
 
-    public TypeListBox(final ItemTable itemTable) {
+    public TypeList(final ItemTable itemTable) {
         super(new BorderLayout());
         final JList typeList = new JList();
         Font font = typeList.getFont();
@@ -56,7 +56,7 @@ public class TypeListBox extends JPanel {
                 return new ItemTableModel(items);
             }
         });
-        JLabel typeLabel = new JLabel("Тип снаряжения", JLabel.CENTER);
+        JLabel typeLabel = new JLabel("Виды снаряжений", JLabel.CENTER);
         add(typeLabel, BorderLayout.NORTH);
         add(new JScrollPane(typeList), BorderLayout.CENTER);
     }
