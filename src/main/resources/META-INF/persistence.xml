@@ -2,30 +2,33 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
-  <persistence-unit name="ariadna.items" transaction-type="RESOURCE_LOCAL">
-    <provider>org.hibernate.ejb.HibernatePersistence</provider>
-    <class>ru.tomsk.ariadna.items.data.AriadnaMember</class>
-    <class>ru.tomsk.ariadna.items.data.Delivery</class>
-    <class>ru.tomsk.ariadna.items.data.DeliveryPacket</class>
-    <class>ru.tomsk.ariadna.items.data.ModelProperty</class>
-    <class>ru.tomsk.ariadna.items.data.Item</class>
-    <class>ru.tomsk.ariadna.items.data.ModelPropertyValue</class>
-    <class>ru.tomsk.ariadna.items.data.ItemProperty</class>
-    <class>ru.tomsk.ariadna.items.data.ItemPropertyValue</class>
-    <class>ru.tomsk.ariadna.items.data.ItemReturn</class>
-    <class>ru.tomsk.ariadna.items.data.Type</class>
-    <class>ru.tomsk.ariadna.items.data.Model</class>
-    <class>ru.tomsk.ariadna.items.data.Discarded</class>
-    <exclude-unlisted-classes>true</exclude-unlisted-classes>
-    <properties>
-      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+    <persistence-unit name="ariadna.items" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>ru.tomsk.ariadna.items.data.AriadnaMember</class>
+        <class>ru.tomsk.ariadna.items.data.Delivery</class>
+        <class>ru.tomsk.ariadna.items.data.DeliveryPacket</class>
+        <class>ru.tomsk.ariadna.items.data.ModelProperty</class>
+        <class>ru.tomsk.ariadna.items.data.Item</class>
+        <class>ru.tomsk.ariadna.items.data.ModelPropertyValue</class>
+        <class>ru.tomsk.ariadna.items.data.ItemProperty</class>
+        <class>ru.tomsk.ariadna.items.data.ItemPropertyValue</class>
+        <class>ru.tomsk.ariadna.items.data.ItemReturn</class>
+        <class>ru.tomsk.ariadna.items.data.Type</class>
+        <class>ru.tomsk.ariadna.items.data.Model</class>
+        <class>ru.tomsk.ariadna.items.data.Discarded</class>
+        <exclude-unlisted-classes>true</exclude-unlisted-classes>
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
       <!-- <property name="hibernate.archive.autodetection" value="class"/> -->
-      <property name="hibernate.show_sql" value="false"/>
-      <property name="hibernate.format_sql" value="false"/>
-      <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-      <property name="hibernate.connection.password" value="123"/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ariadna_items"/>
-    </properties>
-  </persistence-unit>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.useUnicode" value="true"/>
+            <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
+            <property name="hibernate.connection.charSet" value="UTF-8"/>
+            <property name="hibernate.connection.password" value="123"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ariadna_items"/>
+        </properties>
+    </persistence-unit>
 </persistence>
