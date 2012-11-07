@@ -12,7 +12,6 @@
         <class>ru.tomsk.ariadna.items.data.ModelPropertyValue</class>
         <class>ru.tomsk.ariadna.items.data.ItemProperty</class>
         <class>ru.tomsk.ariadna.items.data.ItemPropertyValue</class>
-        <class>ru.tomsk.ariadna.items.data.ItemReturn</class>
         <class>ru.tomsk.ariadna.items.data.Type</class>
         <class>ru.tomsk.ariadna.items.data.Model</class>
         <class>ru.tomsk.ariadna.items.data.Discarded</class>

@@ -21,7 +21,7 @@ import ru.tomsk.ariadna.items.data.Type;
 
 /**
  *
- * @author Шаймарданов Максим Маратович <maximax@contek.ru>
+ * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
 public class TypeList extends JPanel {
 
@@ -35,25 +35,27 @@ public class TypeList extends JPanel {
         typeList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         typeList.setLayoutOrientation(JList.VERTICAL);
         typeList.setListData(getTypeList().toArray());
-        typeList.setCellRenderer(new TypeCellRenderer());
+        typeList.setCellRenderer(new TypeListCellRenderer());
         typeList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 Type type = (Type) typeList.getSelectedValue();
-                ItemTableModel dataModel = getItemTableModel(type);
-                itemTable.setModel(dataModel);
+                List<Item> items = getItems(type);
+                itemTable.getModel().setItems(items);
             }
 
-            private ItemTableModel getItemTableModel(Type type) {
+            private List<Item> getItems(Type type) {
                 EntityManager entityManager = PersistenceUtil.getEntityManager();
                 Query query = entityManager.createQuery(
                         "SELECT i FROM Item i "
+                        + "LEFT JOIN i.deliveries as del "
                         + "WHERE i.model.modelPK.type = :type "
+                        + "AND (del.isReturn = null OR del.isReturn = true) "
                         + "ORDER BY i.number ");
                 query.setParameter("type", type.getName());
                 List<Item> items = query.getResultList();
                 type.setCacheItemCount(items.size());
-                return new ItemTableModel(items);
+                return items;
             }
         });
         JLabel typeLabel = new JLabel("Виды снаряжений", JLabel.CENTER);

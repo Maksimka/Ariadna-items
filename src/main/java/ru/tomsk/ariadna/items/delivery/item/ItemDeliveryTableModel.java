@@ -1,5 +1,6 @@
 package ru.tomsk.ariadna.items.delivery.item;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -7,7 +8,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.tomsk.ariadna.items.data.Delivery;
 import ru.tomsk.ariadna.items.data.Item;
-import ru.tomsk.ariadna.items.data.ItemReturn;
 
 /**
  *
@@ -27,8 +27,17 @@ public class ItemDeliveryTableModel extends AbstractTableModel {
 
     private List<Delivery> deliveries;
 
+    public ItemDeliveryTableModel() {
+        deliveries = Collections.emptyList();
+    }
+
     public ItemDeliveryTableModel(List<Delivery> deliveries) {
         this.deliveries = deliveries;
+    }
+
+    public void setDeliveries(List<Delivery> deliveries) {
+        this.deliveries = deliveries;
+        fireTableDataChanged();
     }
 
     @Override
@@ -90,12 +99,7 @@ public class ItemDeliveryTableModel extends AbstractTableModel {
             fullModelName.append(" (").append(vendorName).append(')');
             return fullModelName.toString();
         } else if (columnIndex == RETURN_DATE) {
-            ItemReturn itemReturn = delivery.getItemReturn();
-            if (itemReturn == null) {
-                return null;
-            } else {
-                return itemReturn.getReturnDate();
-            }
+            return delivery.isReturn() ? delivery.getReturnDate() : null;
         } else {
             logger.warn("Попытка получить значение которое не существет из списка выдач. "
                     + "Строка: " + rowIndex + ", столбец: " + columnIndex);

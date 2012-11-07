@@ -11,9 +11,9 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
  *
  * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class DeliveryPacketTableModel extends AbstractTableModel {
+public class PacketTableModel extends AbstractTableModel {
 
-    private static final Logger logger = LoggerFactory.getLogger(DeliveryPacketTableModel.class);
+    private static final Logger logger = LoggerFactory.getLogger(PacketTableModel.class);
 
     public static final int DELIVERY_PACKET_ID = 0;
 
@@ -25,18 +25,18 @@ public class DeliveryPacketTableModel extends AbstractTableModel {
 
     public static final int EXPECTED_RETURN_DATE = 2;
 
-    private List<DeliveryPacket> delivertPackets;
+    private List<DeliveryPacket> deliveryPackets;
 
-    public void setDelivertPackets(List<DeliveryPacket> delivertPackets) {
-        this.delivertPackets = delivertPackets;
+    public void setDeliveryPackets(List<DeliveryPacket> deliveryPackets) {
+        this.deliveryPackets = deliveryPackets;
     }
 
     @Override
     public int getRowCount() {
-        if (delivertPackets == null) {
+        if (deliveryPackets == null) {
             return 0;
         } else {
-            return delivertPackets.size();
+            return deliveryPackets.size();
         }
     }
 
@@ -78,7 +78,7 @@ public class DeliveryPacketTableModel extends AbstractTableModel {
      */
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
-        DeliveryPacket packet = delivertPackets.get(rowIndex);
+        DeliveryPacket packet = deliveryPackets.get(rowIndex);
         if (columnIndex == DELIVERY_PACKET_ID) {
             return packet.getId();
         } else if (columnIndex == MEMBER_NAME) {
@@ -114,6 +114,6 @@ public class DeliveryPacketTableModel extends AbstractTableModel {
     }
 
     public DeliveryPacket getDeliveryPacket(int rowIndex) {
-        return delivertPackets.get(rowIndex);
+        return deliveryPackets.get(rowIndex);
     }
 }

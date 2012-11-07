@@ -15,11 +15,12 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "item")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Item.findAll", query = "SELECT i FROM Item i"),
-    @NamedQuery(name = "Item.findById", query = "SELECT i FROM Item i WHERE i.id = :id"),
-    @NamedQuery(name = "Item.findByNumber", query = "SELECT i FROM Item i WHERE i.number = :number"),
-    @NamedQuery(name = "Item.findByReceiptDate", query = "SELECT i FROM Item i WHERE i.receiptDate = :receiptDate"),
-    @NamedQuery(name = "Item.findByNote", query = "SELECT i FROM Item i WHERE i.note = :note")})
+    @NamedQuery(name = "Item.findAll",
+    query = "SELECT i FROM Item i"),
+    @NamedQuery(name = "Item.findById",
+    query = "SELECT i FROM Item i WHERE i.id = :id"),
+    @NamedQuery(name = "Item.findByReceiptDate",
+    query = "SELECT i FROM Item i WHERE i.receiptDate = :receiptDate")})
 public class Item implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,7 +55,10 @@ public class Item implements Serializable {
     private Model model;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "item")
-    private Collection<Delivery> deliveryCollection;
+    private Collection<Delivery> deliveries;
+
+    @Column(name = "is_discarded")
+    private boolean isDiscarded;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "item")
     private Discarded discarded;
@@ -125,11 +129,19 @@ public class Item implements Serializable {
 
     @XmlTransient
     public Collection<Delivery> getDeliveryCollection() {
-        return deliveryCollection;
+        return deliveries;
     }
 
     public void setDeliveryCollection(Collection<Delivery> deliveryCollection) {
-        this.deliveryCollection = deliveryCollection;
+        this.deliveries = deliveryCollection;
+    }
+
+    public boolean isDiscarded() {
+        return isDiscarded;
+    }
+
+    public void setDiscarded(boolean isDiscarded) {
+        this.isDiscarded = isDiscarded;
     }
 
     public Discarded getDiscarded() {

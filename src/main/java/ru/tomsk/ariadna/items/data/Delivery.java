@@ -1,10 +1,9 @@
 package ru.tomsk.ariadna.items.data;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Date;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,19 +23,23 @@ public class Delivery implements Serializable {
     @EmbeddedId
     protected DeliveryPK deliveryPK;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "delivery")
-    private ItemReturn itemReturn;
-
-    @JoinColumn(name = "item_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "item_id", referencedColumnName = "id",
+    insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Item item;
 
-    @JoinColumn(name = "delivery_packet_id", referencedColumnName = "delivery_packet_id", insertable = false, updatable = false)
+    @JoinColumn(name = "delivery_packet_id", referencedColumnName = "delivery_packet_id",
+    insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private DeliveryPacket deliveryPacket;
 
-    @OneToMany(mappedBy = "deliveryPacketId")
-    private Collection<Discarded> discardedCollection;
+    @Basic(optional = false)
+    @Column(name = "is_return")
+    private boolean isReturn;
+
+    @Column(name = "return_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date returnDate;
 
     public Delivery() {
         //Автоматически созданный конструктор
@@ -48,6 +51,8 @@ public class Delivery implements Serializable {
 
     public Delivery(int deliveryPacketId, int itemId) {
         this.deliveryPK = new DeliveryPK(deliveryPacketId, itemId);
+        this.isReturn = false;
+        this.returnDate = null;
     }
 
     public DeliveryPK getDeliveryPK() {
@@ -56,14 +61,6 @@ public class Delivery implements Serializable {
 
     public void setDeliveryPK(DeliveryPK deliveryPK) {
         this.deliveryPK = deliveryPK;
-    }
-
-    public ItemReturn getItemReturn() {
-        return itemReturn;
-    }
-
-    public void setItemReturn(ItemReturn itemReturn) {
-        this.itemReturn = itemReturn;
     }
 
     public Item getItem() {
@@ -82,13 +79,20 @@ public class Delivery implements Serializable {
         this.deliveryPacket = deliveryPacket;
     }
 
-    @XmlTransient
-    public Collection<Discarded> getDiscardedCollection() {
-        return discardedCollection;
+    public boolean isReturn() {
+        return isReturn;
     }
 
-    public void setDiscardedCollection(Collection<Discarded> discardedCollection) {
-        this.discardedCollection = discardedCollection;
+    public void setReturn(boolean isReturn) {
+        this.isReturn = isReturn;
+    }
+
+    public Date getReturnDate() {
+        return returnDate;
+    }
+
+    public void setReturnDate(Date returnDate) {
+        this.returnDate = returnDate;
     }
 
     @Override

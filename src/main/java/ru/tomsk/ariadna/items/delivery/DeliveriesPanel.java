@@ -8,7 +8,7 @@ import javax.swing.JSplitPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.tomsk.ariadna.items.delivery.item.ItemDeliveryTable;
-import ru.tomsk.ariadna.items.delivery.packet.DeliveryPacketPanel;
+import ru.tomsk.ariadna.items.delivery.packet.PacketPanel;
 
 /**
  * Панел выдачи.
@@ -22,7 +22,7 @@ public class DeliveriesPanel extends JPanel {
     /**
      * Выдачи.
      */
-    private final DeliveryPacketPanel deliveryPacketPanel;
+    private final PacketPanel deliveryPacketPanel;
 
     /**
      * Список снаряжения для выдачи.
@@ -36,7 +36,7 @@ public class DeliveriesPanel extends JPanel {
     public DeliveriesPanel(LayoutManager layout) {
         super(layout);
         itemDeliveryTable = new ItemDeliveryTable();
-        deliveryPacketPanel = new DeliveryPacketPanel(itemDeliveryTable);
+        deliveryPacketPanel = new PacketPanel(itemDeliveryTable);
         add(createHorizontalSplitPane(), BorderLayout.CENTER);
     }
 

@@ -39,10 +39,6 @@ public class Discarded implements Serializable {
     @OneToOne(optional = false)
     private Item item;
 
-    @JoinColumn(name = "delivery_packet_id", referencedColumnName = "delivery_packet_id")
-    @ManyToOne
-    private Delivery deliveryPacketId;
-
     public Discarded() {
         //Автоматически созданный конструктор
     }
@@ -87,14 +83,6 @@ public class Discarded implements Serializable {
 
     public void setItem(Item item) {
         this.item = item;
-    }
-
-    public Delivery getDeliveryPacketId() {
-        return deliveryPacketId;
-    }
-
-    public void setDeliveryPacketId(Delivery deliveryPacketId) {
-        this.deliveryPacketId = deliveryPacketId;
     }
 
     @Override

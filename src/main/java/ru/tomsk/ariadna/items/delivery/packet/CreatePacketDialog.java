@@ -17,11 +17,11 @@ import ru.tomsk.ariadna.items.data.DeliveryPacket;
  *
  * @author Ŝajmardanov Maksim <maximaxsh@gmail.com>
  */
-public class CreatePackeDeliveryDialog extends JDialog {
+public class CreatePacketDialog extends JDialog {
 
-    private static final Logger logger = LoggerFactory.getLogger(CreatePackeDeliveryDialog.class);
+    private static final Logger logger = LoggerFactory.getLogger(CreatePacketDialog.class);
 
-    private final DeliveryPacketForm form;
+    private final PacketForm form;
 
     private final JPanel buttons;
 
@@ -33,18 +33,18 @@ public class CreatePackeDeliveryDialog extends JDialog {
 
     private static final Dimension DEFAULT_SIZE = new Dimension(800, 600);
 
-    public CreatePackeDeliveryDialog() {
+    public CreatePacketDialog() {
         this(new DeliveryPacket());
     }
 
-    public CreatePackeDeliveryDialog(DeliveryPacket packet) {
+    public CreatePacketDialog(DeliveryPacket packet) {
         super();
         if (packet.getId() == null) {
             setTitle(NEW_PACKET + SEPARATOR + DIALOG_TITLE);
         } else {
             setTitle(packet.getEvent() + SEPARATOR + DIALOG_TITLE);
         }
-        form = new DeliveryPacketForm(packet);
+        form = new PacketForm(packet);
         add(form, BorderLayout.CENTER);
         buttons = createButtons();
         add(buttons, BorderLayout.SOUTH);
@@ -56,6 +56,7 @@ public class CreatePackeDeliveryDialog extends JDialog {
     private JPanel createButtons() {
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         JButton save = new JButton(new AbstractAction("Сохранить") {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 //Сохранить пакет снаряжения
@@ -64,6 +65,7 @@ public class CreatePackeDeliveryDialog extends JDialog {
         });
         buttonPanel.add(save);
         JButton exit = new JButton(new AbstractAction("Закрыть") {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 setVisible(false);

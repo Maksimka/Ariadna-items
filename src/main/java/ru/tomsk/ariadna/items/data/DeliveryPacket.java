@@ -15,11 +15,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "delivery_packet")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "DeliveryPacket.findAll", query = "SELECT d FROM DeliveryPacket d"),
-    @NamedQuery(name = "DeliveryPacket.findByDeliveryPacketId", query = "SELECT d FROM DeliveryPacket d WHERE d.deliveryPacketId = :deliveryPacketId"),
-    @NamedQuery(name = "DeliveryPacket.findByEvent", query = "SELECT d FROM DeliveryPacket d WHERE d.event = :event"),
-    @NamedQuery(name = "DeliveryPacket.findByDeliveryDate", query = "SELECT d FROM DeliveryPacket d WHERE d.deliveryDate = :deliveryDate"),
-    @NamedQuery(name = "DeliveryPacket.findByExpectedReturnDate", query = "SELECT d FROM DeliveryPacket d WHERE d.expectedReturnDate = :expectedReturnDate")})
+    @NamedQuery(name = "DeliveryPacket.findAll",
+    query = "SELECT d FROM DeliveryPacket d"),
+    @NamedQuery(name = "DeliveryPacket.findByid",
+    query = "SELECT d FROM DeliveryPacket d WHERE d.id = :id"),
+    @NamedQuery(name = "DeliveryPacket.findByEvent",
+    query = "SELECT d FROM DeliveryPacket d WHERE d.event = :event"),
+    @NamedQuery(name = "DeliveryPacket.findByDeliveryDate",
+    query = "SELECT d FROM DeliveryPacket d WHERE d.deliveryDate = :deliveryDate"),
+    @NamedQuery(name = "DeliveryPacket.findByExpectedReturnDate",
+    query = "SELECT d FROM DeliveryPacket d WHERE d.expectedReturnDate = :expectedReturnDate")})
 public class DeliveryPacket implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -27,7 +32,7 @@ public class DeliveryPacket implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "delivery_packet_id")
-    private Integer deliveryPacketId;
+    private Integer id;
 
     @Basic(optional = false)
     @Column(name = "event")
@@ -54,23 +59,23 @@ public class DeliveryPacket implements Serializable {
         //Автоматически созданный конструктор
     }
 
-    public DeliveryPacket(Integer deliveryPacketId) {
-        this.deliveryPacketId = deliveryPacketId;
+    public DeliveryPacket(Integer id) {
+        this.id = id;
     }
 
-    public DeliveryPacket(Integer deliveryPacketId, String event, Date deliveryDate, Date expectedReturnDate) {
-        this.deliveryPacketId = deliveryPacketId;
+    public DeliveryPacket(Integer id, String event, Date deliveryDate, Date expectedReturnDate) {
+        this.id = id;
         this.event = event;
         this.deliveryDate = deliveryDate;
         this.expectedReturnDate = expectedReturnDate;
     }
 
-    public Integer getDeliveryPacketId() {
-        return deliveryPacketId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setDeliveryPacketId(Integer deliveryPacketId) {
-        this.deliveryPacketId = deliveryPacketId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getEvent() {
@@ -117,7 +122,7 @@ public class DeliveryPacket implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (deliveryPacketId != null ? deliveryPacketId.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -128,7 +133,7 @@ public class DeliveryPacket implements Serializable {
             return false;
         }
         DeliveryPacket other = (DeliveryPacket) object;
-        if ((this.deliveryPacketId == null && other.deliveryPacketId != null) || (this.deliveryPacketId != null && !this.deliveryPacketId.equals(other.deliveryPacketId))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -136,6 +141,6 @@ public class DeliveryPacket implements Serializable {
 
     @Override
     public String toString() {
-        return "ru.tomsk.ariadna.items.data.DeliveryPacket[ deliveryPacketId=" + deliveryPacketId + " ]";
+        return "ru.tomsk.ariadna.items.data.DeliveryPacket[ deliveryPacketId=" + id + " ]";
     }
 }

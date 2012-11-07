@@ -10,7 +10,7 @@ import javax.swing.JSplitPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ru.tomsk.ariadna.items.delivery.DeliveriesPanel;
-import ru.tomsk.ariadna.items.item.ItemsPanel;
+import ru.tomsk.ariadna.items.item.ItemPanel;
 
 /**
  *
@@ -40,13 +40,13 @@ public class RootFrame extends JFrame {
 
     private final DeliveriesPanel deliveriesPanel;
 
-    private final ItemsPanel itemsPanel;
+    private final ItemPanel itemsPanel;
 
     public RootFrame() {
         setTitle(Main.TITLE);
         loadPreferences();
         deliveriesPanel = new DeliveriesPanel();
-        itemsPanel = new ItemsPanel();
+        itemsPanel = new ItemPanel();
         add(createVerticalSplitPane(), BorderLayout.CENTER);
         addWindowListener(getClosing());
     }
